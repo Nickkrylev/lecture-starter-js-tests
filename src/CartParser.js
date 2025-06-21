@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import * as idGenerator from 'uuid';
+import { randomUUID } from 'crypto'
 
 class CartParser {
 	constructor() {
@@ -52,9 +52,9 @@ class CartParser {
 		}
 
 		const lines = contents
-				.split(/\n/)
-				.filter(l => l)
-				.filter((l, i) => i > 0),
+			.split(/\n/)
+			.filter(l => l)
+			.filter((l, i) => i > 0),
 			items = lines.map(l => this.parseLine(l)),
 			total = this.calcTotal(items);
 
@@ -186,7 +186,7 @@ class CartParser {
 			item[key] = valueTyped;
 		}
 
-		item.id = idGenerator.v4();
+		item.id = randomUUID();
 
 		return item;
 	}
